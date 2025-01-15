@@ -1,4 +1,5 @@
 <?php 
+    include 'DBconnect.php';
     class product {
         public $id;
         public $name;
@@ -7,8 +8,8 @@
         public $description;
         public $category_id;
         public $image;
-
         
+
 
     }
 

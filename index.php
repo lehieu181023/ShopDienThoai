@@ -1,6 +1,6 @@
 <?php
  include ('../DATN/Model/DBcontext.php');
-    $sqlselect = "SELECT * FROM `product` WHERE 1";
+    $sqlselect = "SELECT * FROM `product` Limit 6";
     $listpd = $db->ArraySelect($sqlselect);
 ?>
 <!DOCTYPE html>
