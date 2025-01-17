@@ -1,5 +1,5 @@
 <?php
- include ('../DATN/Model/DBcontext.php');
+ include ('../DATN/DB/DBcontext.php');
     $sqlselect = "SELECT * FROM `product` Limit 6";
     $listpd = $db->ArraySelect($sqlselect);
 ?>

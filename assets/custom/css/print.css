@@ -1,0 +1,29 @@
+﻿*{ font-size: 15px !important; font-family: 'Time New Roman' !important }
+body{ background: #fff !important; }
+.page{ margin: 0; border: initial; border-radius: initial; width: initial; min-height: initial; box-shadow: initial; background: initial; page-break-after: always; }
+.table{ margin: auto; width: 98%; max-width: 98%; font-size: 12px !important; }
+.table { border: none !important; border-bottom:1px solid #000 !important; border-right:1px solid #000 !important; }
+.table td:nth-child(1) ~ td{ text-align: center; }
+.table thead { background: #000 !important; } 
+.table th,
+.table td{ padding: 5px; border: none !important; border-top: 1px solid #000 !important; border-left: 1px solid #000 !important; position: unset; overflow: hidden; border-bottom-width: 1px !important; background: #fff !important; font-size: 12px !important; top: unset !important; }
+.table th span, .table td span{ font-size: 12px !important; display: block !important; }
+#TableBieu, .table_head, .TableBieu{ border-collapse: unset; border-spacing: unset; }
+#PrPDF .table{ max-width: 100%; width: 100%; }
+.nameRow {width: 170px!important}
+
+
+@media print {
+    * {
+        page-break-inside: avoid; /* Tránh ngắt trang bên trong phần tử */
+    }
+
+    body {
+        page-break-before: auto; /* Tự động quyết định ngắt trang ở đầu */
+        page-break-after: auto; /* Tự động quyết định ngắt trang ở cuối */
+    }
+
+    table, tr, td {
+        page-break-inside: avoid; /* Đảm bảo bảng không bị ngắt */
+    }
+}

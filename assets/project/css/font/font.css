@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'UTMAlterGothic';
+    src: url('UTMAlterGothic.eot');
+    src: url('UTMAlterGothic.eot?#iefix') format('embedded-opentype'),
+         url('UTMAlterGothic.woff2') format('woff2'),
+         url('UTMAlterGothic.woff') format('woff'),
+         url('UTMAlterGothic.ttf') format('truetype'),
+         url('UTMAlterGothic.svg#UTMAlterGothic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.fUTMAlterGothic {font-family: UTMAlterGothic}
+
+/*@font-face {
+    font-family: 'SVNJourney';
+    src: url('SVN-Journey.eot');
+    src: url('SVN-Journey.eot?#iefix') format('embedded-opentype'),
+         url('SVN-Journey.woff2') format('woff2'),
+         url('SVN-Journey.woff') format('woff'),
+         url('SVN-Journey.ttf') format('truetype'),
+         url('SVN-Journey.svg#SVN-Journey') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+.fSVNJourney {font-family: SVNJourney}
+
+@font-face {
+    font-family: 'SVNJourneyB';
+    src: url('SVN-JourneyBold.eot');
+    src: url('SVN-JourneyBold.eot?#iefix') format('embedded-opentype'),
+         url('SVN-JourneyBold.woff2') format('woff2'),
+         url('SVN-JourneyBold.woff') format('woff'),
+         url('SVN-JourneyBold.ttf') format('truetype'),
+         url('SVN-JourneyBold.svg#SVN-JourneyBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+.fSVNJourneyB {font-family: SVNJourneyB}
+
+@font-face {
+    font-family: 'UTMAlexander';
+    src: url('UTMAlexander.eot');
+    src: url('UTMAlexander.eot?#iefix') format('embedded-opentype'),
+         url('UTMAlexander.woff2') format('woff2'),
+         url('UTMAlexander.woff') format('woff'),
+         url('UTMAlexander.ttf') format('truetype'),
+         url('UTMAlexander.svg#UTMAlexander') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+.fUTMAlexander { font-family: UTMAlexander; }*/
+
+
+@font-face {
+    font-family: 'UTMHelvetIns';
+    src: url('UTMHelvetIns.eot');
+    src: url('UTMHelvetIns.eot?#iefix') format('embedded-opentype'),
+         url('UTMHelvetIns.woff2') format('woff2'),
+         url('UTMHelvetIns.woff') format('woff'),
+         url('UTMHelvetIns.ttf') format('truetype'),
+         url('UTMHelvetIns.svg#UTMHelvetIns') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
