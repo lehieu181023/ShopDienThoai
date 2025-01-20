@@ -55,7 +55,7 @@
         // Hash mật khẩu    
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-        $sql = "UPDATE `accountcustomer` SET `Name`='$name',`Password`='$pass',`Email`='$email',`SDT`='$phone',`Status`='$status' WHERE `Id`='$Id'";
+        $sql = "UPDATE `accountcustomer` SET `Name`='$name',`Password`='$hashedPassword',`Email`='$email',`SDT`='$phone',`Status`='$status' WHERE `Id`='$Id'";
 
         $db->ExecuteQuery($sql);
     }
