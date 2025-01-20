@@ -1,6 +1,6 @@
 <?php
  include ('../DATN/DB/DBcontext.php');
-    $sqlselect = "SELECT * FROM `product` Limit 6";
+    $sqlselect = "SELECT * FROM `product`";
     $listpd = $db->ArraySelect($sqlselect);
 ?>
 <!DOCTYPE html>
@@ -35,7 +35,6 @@
     <![endif]-->
   </head>
   <body>
-   
     <div class="header-area">
         <div class="container">
             <div class="row">

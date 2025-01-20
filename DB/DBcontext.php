@@ -46,12 +46,28 @@ class DBcontext {
             }
         } else {
             echo "Không có kết quả!";
-        }
-        // Đóng kết nối
-        $this->closeConnection();
-        
+        }      
         // Trả về kết quả
         return $data;      
+    }
+    
+    public function ExecuteQuery($sql){
+        // Mở kết nối
+        $this->connection();
+        // Thực thi truy vấn
+        if ($this->connect->query($sql) === TRUE) {
+            $response = [
+                'success' => true,
+                'message' => 'Thực thi thành công!'
+            ];   
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'thực thi thất bại: ' . $this->connect->error
+            ];
+        }
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 }
 

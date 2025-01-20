@@ -1,5 +1,5 @@
 
-UploadFile = function(input) {
+UploadFile = function(input,name) {
     // Kiểm tra file
     if (input.files && input.files[0]) {
         let file = input.files[0];
@@ -8,7 +8,7 @@ UploadFile = function(input) {
 
         // Sử dụng jQuery AJAX
         $.ajax({
-            url: 'http://localhost:3000/xampp/htdocs/DATN/UploadFile.php', // URL đến file PHP xử lý
+            url: 'UploadFile.php', // URL đến file PHP xử lý
             type: 'POST',
             data: formData,
             contentType: false, // Không đặt Content-Type
@@ -19,8 +19,8 @@ UploadFile = function(input) {
                 xhr.upload.addEventListener('progress', function (e) {
                     if (e.lengthComputable) {
                         let percentComplete = Math.round((e.loaded / e.total) * 100);
-                        $('#progress-container').show();
-                        $('#progress-bar').css('width', percentComplete + '%').text(percentComplete + '%');
+                        $('#progress-container-'+name).show();
+                        $('#progress-bar-'+name).css('width', percentComplete + '%').text(percentComplete + '%');
                     }
                 }, false);
                 return xhr;
@@ -28,10 +28,12 @@ UploadFile = function(input) {
             success: function (response) {
                 if (response.success) {
                     alert(response.message); // Hiển thị thành công
-                    console.log(response.filePath); // Đường dẫn file đã tải lên
-                    $('#imgfile').attr('src', response.filePath); // Hiển thị ảnh
-                    $('#progress-bar').css('width', '0%').text('0%'); // Reset tiến trình
-                    $('#progress-container').hide();
+                    console.log("thêm file: " +response.filePath); // Đường dẫn file đã tải lên
+                    $('#imgfile-'+name).attr('src', response.filePath); // Hiển thị ảnh
+                    $('#Preview-'+name).removeAttr('hidden');
+                    $('#imgfile-value-'+name).val(response.filePath); // Gán đường dẫn file vào input hidden
+                    $('#progress-bar-'+name).css('width', '0%').text('0%'); // Reset tiến trình
+                    $('#progress-container-'+name).hide();
                 } else {
                     alert(response.message); // Hiển thị lỗi
                 }           
@@ -43,4 +45,26 @@ UploadFile = function(input) {
     } else {
         alert('Vui lòng chọn file!');
     }
+}
+
+deletefile = function(input,name) {
+    $.ajax({
+        url: 'DeleteFile.php', // URL đến file PHP xử lý
+        type: 'POST',
+        data: {filePath: input},
+        success: function (response) {
+            if (response.success) {
+                alert(response.message); // Hiển thị thành công
+                console.log("xóa file: " + response.filePath);
+                $('#imgfile-'+name).attr('src', '');
+                $('#Preview-'+name).attr('hidden','hidden');
+                $('#imgfile-value-'+name).val('');
+            } else {
+                alert(response.message); // Hiển thị lỗi
+            }           
+        },
+        error: function () {
+            alert('Có lỗi xảy ra khi gửi yêu cầu!');
+        }
+    });
 }
