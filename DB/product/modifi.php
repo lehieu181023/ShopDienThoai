@@ -11,11 +11,14 @@
         if($Id > 0){
             $sql = "UPDATE `product` SET `Name`='$name',`Brands`='$brands',`Image`='$image',`Price`='$price',`Status`='$status',`quantity`='$quanity' WHERE `id`='$Id'";
 
-            $db->ExecuteQuery($sql);
+            $response = $db->ExecuteQuery($sql);
+            header('Content-Type: application/json');
+            echo json_encode($response);
         }
         else{
             echo "Id không hợp lệ";
         }
+        
         
     }
 ?>

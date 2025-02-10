@@ -1,7 +1,12 @@
 <?php
- include ('../DATN/DB/DBcontext.php');
-    $sqlselect = "SELECT * FROM `product`";
+    session_start();
+    include ('../DATN/DB/DBcontext.php');
+    $sqlselect = "SELECT * FROM `product` ORDER BY `CreateDay` DESC LIMIT 6;";
     $listpd = $db->ArraySelect($sqlselect);
+    $loggin = false;
+    if (isset($_SESSION['account'])) {
+        $loggin = true;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,92 +40,9 @@
     <![endif]-->
   </head>
   <body>
-    <div class="header-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="user-menu">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="header-right">
-                        <ul class="list-unstyled list-inline">
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">INR</a></li>
-                                    <li><a href="#">GBP</a></li>
-                                </ul>
-                            </li>
+  <div id='header'>
 
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">German</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End header area -->
-    
-    <div class="site-branding-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="logo">
-                        <h1><a href="index.html">e<span>Electronics</span></a></h1>
-                    </div>
-                </div>
-                
-                <div class="col-sm-6">
-                    <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End site branding area -->
-    
-    <div class="mainmenu-area">
-        <div class="container">
-            <div class="row">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div> 
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Shop page</a></li>
-                        <li><a href="single-product.html">Single product</a></li>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Others</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>  
-            </div>
-        </div>
-    </div> <!-- End mainmenu area -->
+  </div>  
     
     <div class="slider-area">
         <div class="zigzag-bottom"></div>
@@ -254,9 +176,19 @@
                         ?> 
                             <div class="single-product">
                                 <div class="product-f-image">
-                                    <img src="<?php echo $row['Image'] ?>" alt="">
+                                    <img src="<?php 
+                                                $haystack = $row['Image'];
+                                                $needle = "uploads/";
+                                                $length = strlen($needle); // Độ dài cần kiểm tra
+                                                
+                                                if (substr($haystack, 0, $length) === $needle) {
+                                                    echo 'NiceAdmin/'. $row['Image'] ;
+                                                } else {
+                                                    echo $row['Image'] ;  // Không tìm thấy needle trong haystack, nên trả về giá trị ban đầu
+                                                }
+                                                ?>" alt="">
                                     <div class="product-hover">
-                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a onclick="AddToCart(<?php echo $row['id'] ?>)" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                         <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
                                 </div>
@@ -548,6 +480,12 @@
     
     <!-- Main Script -->
     <script src="js/main.js"></script>
+
+    <script src="js/cart.js"></script>
+
+    <script>
+        LoadHeader();
+    </script>
   </body>
 </html>
 <style>

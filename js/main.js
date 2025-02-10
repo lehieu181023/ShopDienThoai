@@ -86,4 +86,47 @@ jQuery(document).ready(function($){
     })      
 });
 
+function BlockUI() {
+    $("#blockUI").css("display", "flex");
+  }
+  
+function UnBlockUI() {
+$("#blockUI").css("display", "none");
+}
 
+function sendGetRequest(id) {
+    // Lấy URL hiện tại và thêm tham số GET
+    let currentUrl = window.location.href;
+    let newUrl = currentUrl + "?id=" + id;
+
+    // Chuyển hướng đến URL mới
+    window.location.href = newUrl;
+}
+
+function LoadHeader(){
+    $.ajax({
+        url: "header.php",
+        type: "GET",
+        success: function (response) {
+            $("#header").html(response); // Chèn dữ liệu vào bảng
+        },
+        error: function () {
+            alert("Không thể tải dữ liệu!");
+        }
+    });
+}
+
+searchProduct = function (search){
+    $.ajax({
+        url: "DB/product/listdataSearch.php", // Gọi file PHP xử lý
+        type: "GET",
+        data: { search: search },
+        success: function (response) {
+            $("#listdatasearch").html(response); // Chèn dữ liệu vào bảng
+            $("#search").val(search);
+        },
+        error: function () {
+            alert("Không thể tải dữ liệu!");
+        }
+    });
+}

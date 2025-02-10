@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block UI - Loading</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Block UI Overlay */
+        #blockUI {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Nền đen mờ */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1050; /* Cao hơn modal */
+            display: none; /* Ẩn mặc định */
+            pointer-events: auto; /* Chặn mọi tương tác */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Màn hình Block UI -->
+    <div id="blockUI">
+        <div class="text-center bg-white p-4 rounded shadow">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 fw-bold">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Nút bật/tắt Block UI -->
+    <div class="container mt-5 text-center">
+        <button class="btn btn-primary" onclick="showBlockUI()">Bật Block UI</button>
+        <button class="btn btn-danger" onclick="hideBlockUI()">Tắt Block UI</button>
+    </div>
+
+    <script>
+        function showBlockUI() {
+            $('#blockUI').css('display', 'flex');
+        }
+
+        function hideBlockUI() {
+            $('#blockUI').css('display', 'none');
+        }
+    </script>
+
+</body>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+</html>

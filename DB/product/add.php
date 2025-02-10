@@ -11,6 +11,8 @@
 
         $sql = "INSERT INTO `product`( `Name`, `Brands`, `Image`, `Price`, `Status`,  `quantity`) VALUES ('$name','$brands','$image','$price','$status','$quanity')";
 
-        $db->ExecuteQuery($sql);
+        $response = $db->ExecuteQuery($sql);
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 ?>

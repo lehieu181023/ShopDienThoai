@@ -13,31 +13,43 @@
             exit();
         }
 
-        $sql = "SELECT * FROM `accountcustomer` WHERE `Email`='$account'";
+        $sql = "SELECT * FROM `accountcustomer` WHERE `Status` = 1 and `Email`='$account' OR `SDT`='$account' ";
         $data = $db->ArraySelect($sql);
-        if(count($data) == 0){
-            $sql = "SELECT * FROM `accountcustomer` WHERE `SDT`='$account'";
-            $data = $db->ArraySelect($sql);   
-        }
         if(count($data) > 0){
             $checkUser = $data[0]['Password'];
             if(password_verify($pass, $checkUser)){
+                
+                session_start(); // Khởi động session
+
+                // Lưu thông tin vào session
+
+                $_SESSION['account'] = $account;
+                $_SESSION['pass'] = $checkUser;
+
                 $response = [
                     'success' => true,
                     'message' => 'Đăng nhập thành công!'
                 ];
+                header('Content-Type: application/json');
+                $db->closeConnection();
+                echo json_encode($response);
+                exit();
             }
             else{
                 $response = [
                     'success' => false,
                     'message' => 'Mật khẩu không đúng!'
                 ];
+                header('Content-Type: application/json');
+                $db->closeConnection();
+                echo json_encode($response);
+                exit();
             }
         }
         else{
             $response = [
                 'success' => false,
-                'message' => 'tài khoản không tồn tại'
+                'message' => 'tài khoản không tồn tại hoặc đã bị khóa!'
             ];
             header('Content-Type: application/json');
             echo json_encode($response);
