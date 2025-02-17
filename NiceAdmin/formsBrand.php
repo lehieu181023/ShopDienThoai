@@ -26,7 +26,7 @@
                   data-ajax-begin="BlockUI()"
                   data-ajax-failure="UnBlockUI()"
                   data-ajax-method="POST"
-                  data-ajax-success="successAction()"
+                  data-ajax-success="successAction"
                   id="basicForm"
                   method="post"
                   novalidate="">

@@ -28,7 +28,7 @@
                             echo $item['Image'] ;  // Không tìm thấy needle trong haystack, nên trả về giá trị ban đầu
                         }
                         ?>" class="recent-thumb" alt="">
-            <h2><a href="single-product.html"><?php echo $item['Name'] ?></a></h2>
+            <h2><a href="single-product.php?product=<?php echo $item['id'] ?>"><?php echo $item['Name'] ?></a></h2>
             <div class="product-sidebar-price">
                 <ins><?php echo $item['Price'] . ' VND' ?></ins> 
                 <!-- <del>$800.00</del> -->

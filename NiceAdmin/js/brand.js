@@ -12,7 +12,7 @@ loaddata = function (){
     });
 }
 
-successAction = function (){
+successAction = function (res){
     if (res.success){
         UnBlockUI();
         $('#btnclosemodel').click();

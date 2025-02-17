@@ -8,6 +8,7 @@
 <thead>
     <tr>
     <th>STT</th>
+    <th>Access</th>
     <th>Name</th>
     <th>Email</th>
     <th>SDT</th>
@@ -22,6 +23,7 @@
  foreach($data as $item){ ?>
     <tr>
     <td><?php echo $stt++ ?></td>
+    <td><?php echo $item['access']?></td> 
     <td><?php echo $item['Name']?></td>
     <td><?php echo $item['Email']?></td>
     <td><?php echo $item['SDT'] ?></td>
@@ -36,10 +38,7 @@
     }
     ?>
     </td>
-    <td>           
-        <button type="button" class="btn btn-success mb-3" id="viewButton">
-        <i class="bi bi-eye"></i> Xem
-        </button>                  
+    <td>                            
         <!-- Nút Sửa -->
         <button type="button" class="btn btn-warning text-white mb-3" id="editButton" onclick="editData(<?php echo $item['id'] ?>)">
         <i class="bi bi-pencil"></i> Sửa
@@ -58,8 +57,8 @@
     $(document).ready(function() {
       $('table').DataTable({
         "pageLength": 10,  // Số dòng mỗi trang
-        "lengthChange": false, // Không cho phép thay đổi số lượng dòng
-        "searching": false,  // Tắt thanh tìm kiếm
+        "lengthChange": true, // Không cho phép thay đổi số lượng dòng
+        "searching": true,  // Tắt thanh tìm kiếm
         "language": {
           "lengthMenu": "Hiển thị _MENU_ dòng",
           "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ dòng",

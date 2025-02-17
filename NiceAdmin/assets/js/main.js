@@ -326,3 +326,17 @@ function UnBlockUI() {
   $("#blockUI").css("display", "none");
 }
 
+editStatusContact = function (id) {
+  $.ajax({
+      url: "DB/contact/editStatus.php",
+      type: "POST",
+      data: { id: id},
+      success: function (res) {
+          console.log("đã đọc tin nhắn id: " +id);
+      },
+      error: function () {
+          console.log("Không thể đọc tin nhắn id: " +id);
+      }
+  });
+}
+

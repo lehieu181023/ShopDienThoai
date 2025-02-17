@@ -14,6 +14,7 @@
     <th>Brand</th>
     <th>Price</th>
     <th>Quantity</th>
+    <th>Quantity sold</th>
     <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
     <th>Status</th>
     <th>Operate</th>
@@ -32,17 +33,15 @@
     echo $dataBrands[$index]['Name'];
     ?></td>
     <td><?php echo $item['Price']?></td>
-    <td><?php echo $item['quantity'] ?></td>
+    <td><?php echo $item['quantity']?></td>
+    <td><?php echo $item['QuantitySold']?></td>
     <td><?php echo $item['CreateDay'] ?></td>
     <td>
     <?php
         echo $item['Status'] 
         ?>
     </td>
-    <td>           
-        <button type="button" class="btn btn-success mb-3" id="viewButton">
-        <i class="bi bi-eye"></i> Xem
-        </button>                  
+    <td>                          
         <!-- Nút Sửa -->
         <button type="button" class="btn btn-warning text-white mb-3" id="editButton" onclick="editData(<?php echo $item['id'] ?>)">
         <i class="bi bi-pencil"></i> Sửa

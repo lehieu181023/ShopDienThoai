@@ -53,7 +53,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Product</h1>
+      <h1>Member</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -70,7 +70,7 @@
             <div class="card-body">
               <div class="top-row">
                 <!-- Thanh tìm kiếm ở góc trái -->
-                <div class="search-container">
+                <div class="search-container" hidden>
                   <label for="searchInput">Tìm kiếm:</label>
                   <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm">
                 </div>

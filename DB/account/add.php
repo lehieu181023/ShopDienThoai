@@ -48,7 +48,10 @@
 
         $sql = "INSERT INTO `accountcustomer`(`Name`, `Password`, `Email`, `SDT`,`Status`) VALUES ('$name','$hashedPassword','$email','$phone','$status')";
 
-        $db->ExecuteQuery($sql);
+        $response = $db->ExecuteQuery($sql);
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit();
     }
     else{
         $response = [

@@ -2,6 +2,7 @@
     include ('../DBcontext.php');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $Id ;
+        $access = $_POST['access']??'customer';
         $name = $_POST['name'];
         $pass = $_POST['pass'];
         $email = $_POST['email'];
@@ -46,7 +47,7 @@
         // Hash mật khẩu    
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO `accountcustomer`(`Name`, `Password`, `Email`, `SDT`,`Status`) VALUES ('$name','$hashedPassword','$email','$phone',$status)";
+        $sql = "INSERT INTO `accountcustomer`(`access`,`Name`, `Password`, `Email`, `SDT`,`Status`) VALUES ('$access','$name','$hashedPassword','$email','$phone',$status)";
 
         $response = $db->ExecuteQuery($sql);
         header('Content-Type: application/json');

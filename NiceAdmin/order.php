@@ -39,6 +39,16 @@
       float: left;
       text-align: left;
     }
+    .fitchill {
+      display: inline-block; /* Hoặc dùng fit-content */
+      width: fit-content;
+      height: fit-content;
+    }
+
+    .card.fitchill{
+      overflow-x: auto;
+      width: 75vw;
+    }
   </style>
 </head>
 
@@ -53,11 +63,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Product</h1>
+      <h1>Order</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Product</li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+          <li class="breadcrumb-item active">Order</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -66,11 +76,11 @@
       <div class="row">
         <div class="col-lg-12">
 
-          <div class="card">
-            <div class="card-body">
+          <div class="card fitchill">
+            <div class="card-body fitchill">
               <div class="top-row">
                 <!-- Thanh tìm kiếm ở góc trái -->
-                <div class="search-container">
+                <div class="search-container" hidden>
                   <label for="searchInput">Tìm kiếm:</label>
                   <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm">
                 </div>
@@ -129,9 +139,10 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
-  <script src="js/product.js"></script>
+  <script src="js/order.js"></script>
   <script src="js/UploadFile.js"></script>
 
 
 </body>
+
 </html>

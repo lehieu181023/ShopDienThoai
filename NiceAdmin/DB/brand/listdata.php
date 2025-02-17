@@ -42,10 +42,7 @@
                 }
                 ?>
             </td>
-            <td>           
-                <button type="button" class="btn btn-success" id="viewButton">
-                <i class="bi bi-eye"></i> Xem
-                </button>                  
+            <td>                           
                 <!-- Nút Sửa -->
                 <button type="button" class="btn btn-warning text-white" id="editButton" onclick="editData(<?php echo $item['id'] ?>)">
                 <i class="bi bi-pencil"></i> Sửa
@@ -65,8 +62,8 @@
     $(document).ready(function() {
       $('table').DataTable({
         "pageLength": 10,  // Số dòng mỗi trang
-        "lengthChange": false, // Không cho phép thay đổi số lượng dòng
-        "searching": false,  // Tắt thanh tìm kiếm
+        "lengthChange": true, // Không cho phép thay đổi số lượng dòng
+        "searching": true,  // Tắt thanh tìm kiếm
         "language": {
           "lengthMenu": "Hiển thị _MENU_ dòng",
           "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ dòng",

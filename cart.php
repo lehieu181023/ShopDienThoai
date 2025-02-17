@@ -1,4 +1,8 @@
+<?php
+    include ('../DATN/DB/DBcontext.php');
+    $datatopseller = $db->ArraySelect("SELECT * FROM `product` WHERE `Status`='OnSale' ORDER BY `QuantitySold` LIMIT 2");
 
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,48 +70,29 @@
                             <div class="cross-sells" style="margin-bottom: 20px;">
                                 <h2>You may be interested in...</h2>
                                 <ul class="products">
+                                    <?php foreach ($datatopseller as $item) {?>
                                     <li class="product">
-                                        <a href="single-product.html">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="img/product-2.jpg">
-                                            <h3>Ship Your Idea</h3>
-                                            <span class="price"><span class="amount">£20.00</span></span>
+                                        <a href="single-product.php?product=<?php echo $item['id'] ?>">
+                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="<?php 
+                                                $haystack = $item['Image'];
+                                                $needle = "uploads/";
+                                                $length = strlen($needle); // Độ dài cần kiểm tra
+                                                
+                                                if (substr($haystack, 0, $length) === $needle) {
+                                                    echo 'NiceAdmin/'. $item['Image'] ;
+                                                } else {
+                                                    echo $item['Image'] ;  // Không tìm thấy needle trong haystack, nên trả về giá trị ban đầu
+                                                }
+                                                ?>">
+                                            <h3><?php echo $item['Name'] ?></h3>
+                                            <span class="price"><span class="amount"><?php echo $item['Price'] ?> VND</span></span>
                                         </a>
 
-                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product.html">Select options</a>
+                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product.php?product=<?php echo $item['id'] ?>">Select options</a>
                                     </li>
-
-                                    <li class="product">
-                                        <a href="single-product.html">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="img/product-4.jpg">
-                                            <h3>Ship Your Idea</h3>
-                                            <span class="price"><span class="amount">£20.00</span></span>
-                                        </a>
-
-                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product.html">Select options</a>
-                                    </li>
+                                    <?php }?>
+                                    
                                 </ul>
-                            </div>
-                            <div class="cart_totals ">
-                                <h2>Cart Totals</h2>
-
-                                <table cellspacing="0">
-                                    <tbody>
-                                        <tr class="cart-subtotal">
-                                            <th>Cart Subtotal</th>
-                                            <td><span class="amount">£15.00</span></td>
-                                        </tr>
-
-                                        <tr class="shipping">
-                                            <th>Shipping and Handling</th>
-                                            <td>Free Shipping</td>
-                                        </tr>
-
-                                        <tr class="order-total">
-                                            <th>Order Total</th>
-                                            <td><strong><span class="amount">£15.00</span></strong> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>                        
                     </div>                    

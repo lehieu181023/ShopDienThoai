@@ -48,7 +48,6 @@ AddToCart = function (id) {
             alert("Không thể thêm sản phẩm vào giỏ hàng!");
         }
     });
-
 }
 
 
@@ -80,20 +79,22 @@ deleteData = function (id) {
     }
 }
 
-editData = function (id) {
+editCart = function (id,quantity) {
     BlockUI(); // Không cho người dùng nhập liệu khi đang thao tác với dữ liệu
     $.ajax({
-        url: "formsBrand.php", // Gọi file PHP xử lý
+        url: "DB/cart/modifi.php",
         type: "POST",
-        data: { id: id },
-        success: function (response) {
-            $("#target-div").html(response); // Chèn nội dung HTML vào div
-            $("#myModal").modal("show"); // Hiện modal
-            UnBlockUI();
+        data: { idcart: id, quanity: quantity },
+        success: function (res) {
+            UnBlockUI();   
+            if (res.success === false){
+                alert(res.message);
+            }
+            loaddata();
         },
         error: function () {
             UnBlockUI();
-            alert("Không thể tải dữ liệu!");
+            alert("Không thay đổi sản phẩm trong giỏ hàng!");
         }
     });
 }

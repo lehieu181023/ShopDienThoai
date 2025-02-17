@@ -11,3 +11,11 @@
     z-index: 2000; /* Cao hơn modal */
     pointer-events: auto; /* Chặn mọi tương tác */
   }
+  .img_pro img{
+    width: 250px;
+    height: 350px;
+    object-fit: contain;
+    margin: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}

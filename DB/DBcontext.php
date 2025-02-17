@@ -66,9 +66,7 @@ class DBcontext {
                 // Thêm mỗi dòng dữ liệu vào mảng 2 chiều
                 $data[] = $row;
             }
-        } else {
-            echo "Không có kết quả!";
-        }      
+        }     
         // Trả về kết quả
         return $data[0];      
     }

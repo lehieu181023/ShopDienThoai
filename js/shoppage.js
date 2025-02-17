@@ -5,6 +5,11 @@ loaddataInShopPage = function (page){
         data: { page : page},
         success: function (response) {
             $("#listdata").html(response); // Chèn dữ liệu vào bảng
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            
             if (response.success == false) {
                 alert(response.message);
             }

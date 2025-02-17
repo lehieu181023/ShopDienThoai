@@ -70,7 +70,7 @@
             <div class="card-body">
               <div class="top-row">
                 <!-- Thanh tìm kiếm ở góc trái -->
-                <div class="search-container">
+                <div class="search-container" hidden>
                   <label for="searchInput">Tìm kiếm:</label>
                   <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm">
                 </div>

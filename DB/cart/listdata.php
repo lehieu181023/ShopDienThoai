@@ -27,7 +27,7 @@
             exit();
         }
     }   
-    $sql = "SELECT cart.id, product.Image,product.Name,product.Price,cart.quality,(product.Price * cart.quality) as total FROM cart,product WHERE cart.product_id = product.id AND cart.account_id = $account_id";
+    $sql = "SELECT cart.id,product_id,product.quantity as qualitypr, product.Image,product.Name,product.Price,cart.quality,(product.Price * cart.quality) as total FROM cart,product WHERE cart.product_id = product.id AND cart.account_id = $account_id";
     $data = $db->ArraySelect($sql);
     $db->closeConnection(); 
     
@@ -53,7 +53,7 @@
             </td>
 
             <td class="product-thumbnail">
-                <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="<?php 
+                <a href="single-product.php?product=<?php echo $item['product_id'] ?>"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="<?php 
                                                                                                                             $haystack = $item['Image'];
                                                                                                                             $needle = "uploads/";
                                                                                                                             $length = strlen($needle); // Độ dài cần kiểm tra
@@ -67,7 +67,7 @@
             </td>
 
             <td class="product-name">
-                <a href="single-product.html"><?php echo $item['Name'] ?></a> 
+                <a href="single-product.php?product=<?php echo $item['product_id'] ?>"><?php echo $item['Name'] ?></a> 
             </td>
 
             <td class="product-price">
@@ -76,9 +76,19 @@
 
             <td class="product-quantity">
                 <div class="quantity buttons_added">
-                    <input type="button" class="minus" value="-">
-                    <input type="number" size="4" class="input-text qty text" title="Qty" value="<?php echo $item['quality'] ?>" min="0" step="1">
-                    <input type="button" class="plus" value="+">
+                    <?php
+                    if($item['quality'] < $item ['qualitypr']) 
+                    {       
+                    ?>
+                        <input type="button" class="plus" value="+" onclick="editCart(<?php echo $item['id'] ?>,<?php echo ($item['quality'] + 1) ?>)">
+                    <?php } ?>
+                    <?php echo $item['quality'] ?>
+                    <?php
+                    if($item['quality'] > 1)
+                    {       
+                    ?>
+                        <input type="button" class="plus" value="-" onclick="editCart(<?php echo $item['id'] ?>,<?php echo ($item['quality'] - 1) ?>)">
+                    <?php } ?>
                 </div>
             </td>
 
@@ -89,13 +99,7 @@
         <?php } ?>
         <tr>
             <td class="actions" colspan="6">
-                <div class="coupon">
-                    <label for="coupon_code">Coupon:</label>
-                    <input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code">
-                    <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
-                </div>
-                <input type="submit" value="Update Cart" name="update_cart" class="button">
-                <input type="submit" value="Proceed to Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                <a type="button" href="checkout.php"  class="btn checkout-button button alt wc-forward">Proceed to Checkout</a>
             </td>
         </tr>
     </tbody>

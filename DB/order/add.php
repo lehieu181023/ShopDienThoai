@@ -8,7 +8,7 @@
         $sql = "SELECT * FROM `accountcustomer` WHERE `SDT` = '$account' OR `Email` = '$account'";
         $data = $db->ArraySelect($sql);
         if(count($data) > 0){
-            $account_id = $data[0]['Id'];
+            $account_id = $data[0]['id'];
         }
         else{
             $response = [
@@ -32,6 +32,12 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $address = $_POST['address'] ?? '';
+        $country = $_POST['country'] ?? '';
+        $city = $_POST['city'] ?? '';
+        $postcode = $_POST['postcode'] ?? '';
+        $phone = $_POST['phone'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $fullname = $_POST['fullname'] ?? ''; 
         $sql = "SELECT 
                     cart.product_id, 
                     cart.quality,
@@ -73,7 +79,7 @@
             $total += $quantity * $price;
         }
         // Tạo mã đơn hàng
-        $sql = "INSERT INTO `order`(`account_id`, `total`,`address`) VALUES ('$account_id','$total','$address');";
+        $sql = "INSERT INTO `order`( `account_id`, `total`, `address`, `Country`, `FullName`, `TownCity`, `Postcode`, `EmailAddress`, `Phone`) VALUES ('$account_id','$total','$address','$country','$fullname','$city','$postcode','$email','$phone');";
         $response = $data = $db->ExecuteQuery($sql);
 
         // Thêm chi tiết đơn hàng
@@ -97,7 +103,8 @@
         // Xóa giỏ hàng
         $sql = "DELETE FROM cart WHERE account_id = $account_id;";
         $response = $db->ExecuteQuery($sql);
-        header('Content-Type: application/json');
-        echo json_encode($response);
+        echo "<script>alert('Tạo đơn hàng thành công!')
+                window.location.href = '../../index.html';
+                </script>";
     }
 ?>

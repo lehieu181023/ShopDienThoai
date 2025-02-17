@@ -1,12 +1,10 @@
 <?php
-    session_start();
     include ('../DATN/DB/DBcontext.php');
     $sqlselect = "SELECT * FROM `product` ORDER BY `CreateDay` DESC LIMIT 6;";
     $listpd = $db->ArraySelect($sqlselect);
-    $loggin = false;
-    if (isset($_SESSION['account'])) {
-        $loggin = true;
-    }
+    $datatopseller = $db->ArraySelect("SELECT * FROM `product` WHERE `Status`='OnSale' ORDER BY `QuantitySold` LIMIT 3");
+    $datatopnew = $db->ArraySelect("SELECT * FROM `product` WHERE `Status`='OnSale' ORDER BY `CreateDay` DESC LIMIT 3");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,10 +70,11 @@
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-6">
                                             <div class="slide-content">
-                                                <h2>We are awesome</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem, excepturi. Dolore aliquam quibusdam ut quae iure vero exercitationem ratione!</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi ab molestiae minus reiciendis! Pariatur ab rerum, sapiente ex nostrum laudantium.</p>
-                                                <a href="" class="readmore">Learn more</a>
+                                                <h2>CongAnhMobile</h2>
+                                                <p>Do you need a reputable place to buy a phone?</p>
+                                                <p>Come to us CongAnhMobie will give you the best experience when buying a phone</p>
+                                                <p>CongAnhMobie is the place to buy a phone easily.</p>
+                                                <a href="contact.html" class="readmore">Learn more</a>
                                             </div>
                                         </div>
                                     </div>
@@ -93,9 +92,11 @@
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-6">
                                             <div class="slide-content">
-                                                <h2>We are great</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, dolorum harum molestias tempora deserunt voluptas possimus quos eveniet, vitae voluptatem accusantium atque deleniti inventore. Enim quam placeat expedita! Quibusdam!</p>
-                                                <a href="" class="readmore">Learn more</a>
+                                                <h2>CongAnhMobile</h2>
+                                                <p>Do you need a reputable place to buy a phone?</p>
+                                                <p>Come to us CongAnhMobie will give you the best experience when buying a phone</p>
+                                                <p>CongAnhMobie is the place to buy a phone easily.</p>
+                                                <a href="contact.html" class="readmore">Learn more</a>
                                             </div>
                                         </div>
                                     </div>
@@ -113,10 +114,11 @@
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-6">
                                             <div class="slide-content">
-                                                <h2>We are superb</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eius?</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti voluptates necessitatibus dicta recusandae quae amet nobis sapiente explicabo voluptatibus rerum nihil quas saepe, tempore error odio quam obcaecati suscipit sequi.</p>
-                                                <a href="" class="readmore">Learn more</a>
+                                                <h2>CongAnhMobile</h2>
+                                                <p>Do you need a reputable place to buy a phone?</p>
+                                                <p>Come to us CongAnhMobie will give you the best experience when buying a phone</p>
+                                                <p>CongAnhMobie is the place to buy a phone easily.</p>
+                                                <a href="contact.html" class="readmore">Learn more</a>
                                             </div>
                                         </div>
                                     </div>
@@ -193,10 +195,10 @@
                                     </div>
                                 </div>
                                 
-                                <h2><a href="single-product.html"><?php echo $row['Name'] ?></a></h2>
+                                <h2><a href="single-product.php?product=<?php echo $row['id']?>"><?php echo $row['Name'] ?></a></h2>
                                 
                                 <div class="product-carousel-price">
-                                    <ins>$<?php echo $row['Price'] ?>.00</ins> <del>$800.00</del>
+                                    <ins>$<?php echo $row['Price'] ?>.00 </ins> <del>$800.00</del>
                                 </div> 
                             </div>
                         <?php
@@ -240,9 +242,22 @@
                     <div class="single-product-widget">
                         <h2 class="product-wid-title">Top Sellers</h2>
                         <a href="" class="wid-view-more">View All</a>
+                        <?php
+                            foreach($datatopseller as $item){
+                        ?>
                         <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
+                            <a href="single-product.php?product=<?php echo $item['id'] ?>"><img src="<?php 
+                                    $haystack = $item['Image'];
+                                    $needle = "uploads/";
+                                    $length = strlen($needle); // Độ dài cần kiểm tra
+                                    
+                                    if (substr($haystack, 0, $length) === $needle) {
+                                        echo 'NiceAdmin/'. $item['Image'] ;
+                                    } else {
+                                        echo $item['Image'] ;  // Không tìm thấy needle trong haystack, nên trả về giá trị ban đầu
+                                    }
+                                    ?>" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.php?product=<?php echo $item['id'] ?>"><?php echo $item['Name'] ?></a></h2>
                             <div class="product-wid-rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -251,94 +266,33 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
+                                <ins><?php echo $item['Price'] ?></ins>
                             </div>                            
                         </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                            
-                        </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Apple new i phone 6</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                            
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="single-product-widget">
-                        <h2 class="product-wid-title">Recently Viewed</h2>
-                        <a href="#" class="wid-view-more">View All</a>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                            
-                        </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Sony Smart Air Condtion</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                            
-                        </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                            
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-md-4">
                     <div class="single-product-widget">
                         <h2 class="product-wid-title">Top New</h2>
                         <a href="#" class="wid-view-more">View All</a>
+                        <?php
+                            foreach($datatopnew as $item){
+                        ?>
                         <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                            <a href="single-product.php?product=<?php echo $item['id'] ?>"><img src="<?php 
+                                    $haystack = $item['Image'];
+                                    $needle = "uploads/";
+                                    $length = strlen($needle); // Độ dài cần kiểm tra
+                                    
+                                    if (substr($haystack, 0, $length) === $needle) {
+                                        echo 'NiceAdmin/'. $item['Image'] ;
+                                    } else {
+                                        echo $item['Image'] ;  // Không tìm thấy needle trong haystack, nên trả về giá trị ban đầu
+                                    }
+                                    ?>" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.php?product=<?php echo $item['id'] ?>"><?php echo $item['Name'] ?></a></h2>
                             <div class="product-wid-rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -347,37 +301,10 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
+                                <ins><?php echo $item['Price'] ?></ins>
                             </div>                            
                         </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                            
-                        </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>                            
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

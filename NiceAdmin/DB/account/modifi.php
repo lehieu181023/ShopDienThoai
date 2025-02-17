@@ -2,12 +2,12 @@
     include ('../DBcontext.php');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $Id = $_POST['id'];
+        $access = $_POST['access']??'customer';
         $name = $_POST['name'];
-        $pass = $_POST['pass'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $status = empty($_POST['status'])?'active':$_POST['status'];
-        if(empty($name) || empty($pass) || empty($email) || empty($phone)){
+        if(empty($name) || empty($email) || empty($phone)){
             $response = [
                 'success' => false,
                 'message' => 'Vui lòng nhập đầy đủ thông tin!'
@@ -52,12 +52,12 @@
             }
         }
 
-        // Hash mật khẩu    
-        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-        $sql = "UPDATE `accountcustomer` SET `Name`='$name',`Password`='$hashedPassword',`Email`='$email',`SDT`='$phone',`Status`='$status' WHERE `Id`='$Id'";
+        $sql = "UPDATE `accountcustomer` SET `access`='$access', `Name`='$name',`Email`='$email',`SDT`='$phone',`Status`='$status' WHERE `Id`='$Id'";
 
-        $db->ExecuteQuery($sql);
+        $response= $db->ExecuteQuery($sql);
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
     else{
         $response = [

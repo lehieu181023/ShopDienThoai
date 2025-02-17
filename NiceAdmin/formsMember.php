@@ -2,8 +2,9 @@
   include ('DB/DBcontext.php');
   $id_modifi = $_POST['id']??0;
   $dataOne = [];
+  $dataenumas = $db->ArrayEnum('accountcustomer','access');
   if($id_modifi > 0){
-    $sql = "SELECT * FROM `brand` WHERE id = $id_modifi";
+    $sql = "SELECT * FROM `accountcustomer` WHERE id = $id_modifi";
     $dataOne = $db->OneSelect($sql);
     $db->closeConnection();
   }
@@ -36,6 +37,21 @@
                 <input type="hidden" name="id" value="<?php echo $dataOne['id']??'' ?>">
               <?php } ?>
               <div class="form-horizontal">
+                <div class="form-group">
+                  <div class="row mb-3">
+                    <label for="name" class="control-label col-md-2 text-right">Name</label>
+                    <div class="col-md-10">
+                      <select class="form-select" aria-label="Default select example" name="access">
+                        <option value="">--Select--</option>
+                        <?php
+                          foreach($dataenumas as $itemenum){
+                        ?>
+                        <option value="<?php echo $itemenum?>" <?php echo ($id_modifi>0)?(($itemenum === $dataOne['access'])?' selected':''):'' ?>><?php echo $itemenum ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
                 <div class="form-group">
                   <div class="row mb-3">
                     <label for="name" class="control-label col-md-2 text-right">Name</label>

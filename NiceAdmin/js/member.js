@@ -56,7 +56,7 @@ deleteData = function (id) {
 editData = function (id) {
     BlockUI(); // Không cho người dùng nhập liệu khi đang thao tác với dữ liệu
     $.ajax({
-        url: "formsProduct.php", // Gọi file PHP xử lý
+        url: "formsMember.php", // Gọi file PHP xử lý
         type: "POST",
         data: { id: id },
         success: function (response) {

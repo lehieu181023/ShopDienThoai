@@ -95,7 +95,7 @@ class DBcontext {
         // Mở kết nối
         $this->connection();
         // Truy vấn lấy tất cả 
-        $sql = "SHOW COLUMNS FROM $tablename WHERE Field = '$columnname'";
+        $sql = "SHOW COLUMNS FROM `$tablename` WHERE Field = '$columnname'";
         $result = $this->connect->query($sql);
         $row = mysqli_fetch_assoc($result);
         $enum_list = explode("','",preg_replace("/(enum|set)\('(.+?)'\)/","\\2",$row['Type']));

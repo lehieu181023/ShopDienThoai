@@ -1,21 +1,25 @@
 <?php 
     include ('../DBcontext.php');
-    $dataBrands = $db->ArraySelect("SELECT * FROM `brand` WHERE `Status` = 1");
-    $sql = "SELECT * FROM `product` order by CreateDay desc";
+    $sql = "SELECT * FROM `order` order by DayCreate desc";
     $data = $db->ArraySelect($sql);
+    $dataEnum = $db->ArrayEnum('order','status');
     $db->closeConnection();  
 ?>
 <table class="table">
 <thead>
     <tr>
     <th>STT</th>
-    <th>Img</th>
-    <th>Name</th>
-    <th>Brand</th>
-    <th>Price</th>
-    <th>Quantity</th>
+    <th>Id</th>
+    <th>Total</th>
+    <th>Address</th>
+    <th>Country</th>
+    <th>FullName</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Town/ City</th>
     <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
-    <th>Status</th>
+    <th data-type="date" data-format="YYYY/DD/MM">Date Complete</th>
+    <th>StatusOrder</th>
     <th>Operate</th>
     </tr>
 </thead>
@@ -25,32 +29,29 @@
  foreach($data as $item){ ?>
     <tr>
     <td><?php echo $stt++ ?></td>
-    <td class="img-product"><img  src="<?php echo $item['Image'] ?>" alt="" width="100px" height="100px"></td>
-    <td><?php echo $item['Name']?></td>
-    <td><?php 
-    $index = array_search($item['Brands'], array_column($dataBrands, "id"));
-    echo $dataBrands[$index]['Name'];
-    ?></td>
-    <td><?php echo $item['Price']?></td>
-    <td><?php echo $item['quantity'] ?></td>
-    <td><?php echo $item['CreateDay'] ?></td>
+    <td><?php echo $item['id']?></td>
+    <td><?php echo $item['total']?></td>
+    <td><?php echo $item['address']?></td>
+    <td><?php echo $item['Country']?></td>
+    <td><?php echo $item['FullName']?></td>
+    <td><?php echo $item['Phone']?></td>
+    <td><?php echo $item['EmailAddress']?></td>
+    <td><?php echo $item['TownCity']?></td>
+    <td><?php echo $item['DayCreate'] ?></td>
+    <td><?php echo $item['DayComplete'] ?></td>
     <td>
-    <?php
-        echo $item['Status'] 
-        ?>
-    </td>
+      <select class="form-select" aria-label="Default select example" name="status" onchange="editStatus(<?php echo $item['id'] ?>,this.value)">
+      <?php
+        foreach($dataEnum as $itemenum){
+      ?>
+        <option value="<?php echo $itemenum ?>" <?php echo ($itemenum === $item['status'])?' selected':''?>><?php echo $itemenum ?></option>
+      <?php }?>
+      </select>
+    </td>  <!-- Trạng thái đơn hàng -->  <!-- Nút Xem -->
     <td>           
-        <button type="button" class="btn btn-success mb-3" id="viewButton">
+        <a type="button" class="btn btn-success mb-3" id="viewButton" href="product_in_order.php?orderId=<?php echo $item['id'] ?>">
         <i class="bi bi-eye"></i> Xem
-        </button>                  
-        <!-- Nút Sửa -->
-        <button type="button" class="btn btn-warning text-white mb-3" id="editButton" onclick="editData(<?php echo $item['id'] ?>)">
-        <i class="bi bi-pencil"></i> Sửa
-        </button>                  
-        <!-- Nút Xóa -->
-        <button type="button" class="btn btn-danger mb-3" id="deleteButton"  onclick="deleteData(<?php echo $item['id'] ?>)">
-        <i class="bi bi-trash"></i> Xóa
-        </button>
+        </a>                  
     </td>
     </tr> 
 <?php } ?> 

@@ -2,9 +2,9 @@
     include ('../DBcontext.php');
     $page = $_GET['page']??1;
     $start = ($page - 1) * 12;  
-    $sql = "SELECT * FROM `product` order by CreateDay desc Limit 12 OFFSET $start";
+    $sql = "SELECT * FROM `product` WHERE `Status`='OnSale' order by CreateDay desc Limit 12 OFFSET $start";
     $data = $db->ArraySelect($sql);
-    $datacount = $db->OneSelect("SELECT COUNT(*) as count FROM `product`");
+    $datacount = $db->OneSelect("SELECT COUNT(*) as count FROM `product` WHERE `Status`='OnSale'");
     $db->closeConnection();  
     $pagecount = ceil($datacount['count']/12) ;
 ?>
@@ -28,7 +28,7 @@
                 }
                 ?>" alt="">
             </div>
-            <h2><a href=""><?php echo $item['Name'] ?></a></h2>
+            <h2><a href="single-product.php?product=<?php echo $item['id'] ?>"><?php echo $item['Name'] ?></a></h2>
             <div class="product-carousel-price">
                 <ins><?php echo $item['Price'] . 'VND'?></ins> 
                 <!-- <del>$999.00</del> -->
