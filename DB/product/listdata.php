@@ -1,15 +1,17 @@
 <?php 
     include ('../DBcontext.php');
+    $numberpro = 8;
     $page = $_GET['page']??1;
-    $start = ($page - 1) * 12;  
-    $sql = "SELECT * FROM `product` WHERE `Status`='OnSale' order by CreateDay desc Limit 12 OFFSET $start";
+    $start = ($page - 1) * $numberpro;  
+    $sql = "SELECT * FROM `product` WHERE `Status`='OnSale' order by CreateDay desc Limit $numberpro OFFSET $start";
     $data = $db->ArraySelect($sql);
     $datacount = $db->OneSelect("SELECT COUNT(*) as count FROM `product` WHERE `Status`='OnSale'");
     $db->closeConnection();  
-    $pagecount = ceil($datacount['count']/12) ;
+    $pagecount = ceil($datacount['count']/$numberpro) ;
 ?>
 <div class="row">
 <?php
+    $count =0 ;
     foreach($data as $item){
         // Render product item
 ?>
@@ -39,6 +41,12 @@
             </div>                       
         </div>
     </div>
+    <?php 
+        $count++;
+        if ($count % 4 == 0) { // Mỗi 4 sản phẩm thì thêm dòng mới
+            echo '<div class="clearfix"></div>';
+        }
+    ?>
 <?php } ?>
 </div>
 

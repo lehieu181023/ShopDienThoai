@@ -104,7 +104,7 @@
         $sql = "DELETE FROM cart WHERE account_id = $account_id;";
         $response = $db->ExecuteQuery($sql);
         echo "<script>alert('Tạo đơn hàng thành công!')
-                window.location.href = '../../index.html';
+                window.location.href = '../../index.php';
                 </script>";
     }
 ?>
